@@ -8,13 +8,27 @@ import sys
 
 DEFAULT_FILENAME = "words.txt"
 
-def sort_list(items, ascending=True):
+def sort_list(items, ascending=True, remove_duplicates =False):
     if not isinstance(items, list):
         raise RuntimeError(f"No puede ordenar {type(items)}")
+    # Si se solicita, eliminar duplicados antes de ordenar
+    if remove_duplicates:
+        items = list(set(items))
 
     return sorted(items, reverse=(not ascending), nuevo)
 
 if __name__ == "__main__":
+    # Argumentos por defecto
+    remove_duplicates = False
+
+    # Parseo simple de argumentos
+    args = sys.argv[1:]
+
+    # Comprobar si se pasa --unique
+    if "--unique" in args:
+        remove_duplicates = True
+        args.remove("--unique")
+
     filename = DEFAULT_FILENAME
     if len(sys.argv) == 2:
         filename = sys.argv[1]
@@ -34,5 +48,5 @@ if __name__ == "__main__":
         print(f"El fichero {filename} no existe")
         word_list = ["ravenclaw", "gryffindor", "slytherin", "hufflepuff"]
 
-    print(sort_list(word_list))
+    print(sort_list(word_list, remove_duplicates=remove_duplicates))
 
