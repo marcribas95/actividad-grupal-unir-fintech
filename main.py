@@ -23,6 +23,17 @@ def count_words(items):
 
 
 if __name__ == "__main__":
+    # Argumentos por defecto
+    remove_duplicates = False
+
+    # Parseo simple de argumentos
+    args = sys.argv[1:]
+
+    # Comprobar si se pasa --unique
+    if "--unique" in args:
+        remove_duplicates = True
+        args.remove("--unique")
+
     filename = DEFAULT_FILENAME
     if len(sys.argv) == 2:
         filename = sys.argv[1]
